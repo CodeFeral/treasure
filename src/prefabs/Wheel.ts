@@ -1,7 +1,8 @@
 import config from "../config";
 import gsap from "gsap";
-import { Container, Sprite } from "pixi.js";
 import { Mathematics } from "../utils/Mathematics";
+import { SpriteContainer } from "./SpriteContainer";
+import { Sprite } from "pixi.js";
 import { Vector } from "../utils/misc";
 
 export type WheelConfig = {
@@ -11,7 +12,7 @@ export type WheelConfig = {
 
 const rotationDegrees: number = 60;
 
-export class Wheel extends Container {
+export class Wheel extends SpriteContainer {
   private image: Sprite;
   private shadow: Sprite;
 
@@ -20,26 +21,11 @@ export class Wheel extends Container {
   constructor() {
     super();
 
+    this.shadow = this.addSprite("wheelShadow", config.wheel.shadowOffset);
+    this.image = this.addSprite("wheel", config.wheel.centerOffset);
+
     this.isRotating = false;
-
-    this.shadow = Sprite.from("wheelShadow");
-    this.shadow.anchor.set(0.5);
-
-    this.image = Sprite.from("wheel");
-    this.image.anchor.set(0.5);
-
-    this.addChild(this.shadow, this.image);
-  }
-
-  public center(width: number, height: number): void {
-    this.x = width / 2;
-    this.y = height / 2;
-
-    this.image.x = config.wheel.centerOffset.x;
-    this.image.y = config.wheel.centerOffset.y;
-
-    this.shadow.x = config.wheel.centerOffset.x + config.wheel.shadowOffset.x;
-    this.shadow.y = config.wheel.centerOffset.y + config.wheel.shadowOffset.y;
+    this.visible = true;
   }
 
   public rotate(duration = 1, clockwise = true): void {

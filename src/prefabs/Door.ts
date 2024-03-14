@@ -1,5 +1,6 @@
 import config from "../config";
-import { Container, Sprite } from "pixi.js";
+import { SpriteContainer } from "./SpriteContainer";
+import { Sprite } from "pixi.js";
 import { Vector } from "../utils/misc";
 
 export type DoorConfig = {
@@ -8,7 +9,7 @@ export type DoorConfig = {
   openOffset: Vector;
 };
 
-export class Door extends Container {
+export class Door extends SpriteContainer {
   private closedImage: Sprite;
   private shadowImage: Sprite;
   private openImage: Sprite;
@@ -16,16 +17,11 @@ export class Door extends Container {
   constructor() {
     super();
 
-    this.closedImage = Sprite.from("doorClosed");
-    this.closedImage.anchor.set(0.5);
-    this.shadowImage = Sprite.from("doorOpenShadow");
-    this.shadowImage.anchor.set(0.5);
-    this.openImage = Sprite.from("doorOpen");
-    this.openImage.anchor.set(0.5);
+    this.closedImage = this.addSprite("doorClosed", config.door.closedOffset);
+    this.shadowImage = this.addSprite("doorShadow", config.door.shadowOffset);
+    this.openImage = this.addSprite("doorOpen", config.door.openOffset);
 
     this.setClosed();
-
-    this.addChild(this.closedImage, this.shadowImage, this.openImage);
   }
 
   public setOpen() {
@@ -38,19 +34,5 @@ export class Door extends Container {
     this.closedImage.visible = true;
     this.openImage.visible = false;
     this.shadowImage.visible = false;
-  }
-
-  public center(width: number, height: number): void {
-    this.x = width / 2;
-    this.y = height / 2;
-
-    this.closedImage.x = config.door.closedOffset.x;
-    this.closedImage.y = config.door.closedOffset.y;
-
-    this.shadowImage.x = config.door.openOffset.x + config.door.shadowOffset.x;
-    this.shadowImage.y = config.door.openOffset.y + config.door.shadowOffset.y;
-
-    this.openImage.x = config.door.openOffset.x;
-    this.openImage.y = config.door.openOffset.y;
   }
 }

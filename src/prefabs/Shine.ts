@@ -1,8 +1,9 @@
 import config from "../config";
 import gsap from "gsap";
-import { Container, Sprite } from "pixi.js";
-import { Vector } from "../utils/misc";
 import { Mathematics } from "../utils/Mathematics";
+import { SpriteContainer } from "./SpriteContainer";
+import { Sprite } from "pixi.js";
+import { Vector } from "../utils/misc";
 
 type ShineAnimationConfig = {
   scale: number;
@@ -10,6 +11,7 @@ type ShineAnimationConfig = {
   spinDuration: number;
   alpha: number;
 };
+
 type ShineImageConfig = {
   offset: Vector;
   animation: ShineAnimationConfig;
@@ -21,7 +23,7 @@ export type ShineConfig = {
   right: ShineImageConfig;
 };
 
-export class Shine extends Container {
+export class Shine extends SpriteContainer {
   private leftImage: Sprite;
   private middleImage: Sprite;
   private rightImage: Sprite;
@@ -29,20 +31,15 @@ export class Shine extends Container {
   constructor() {
     super();
 
-    this.leftImage = Sprite.from("shine");
-    this.leftImage.anchor.set(0.5);
-    this.middleImage = Sprite.from("shine");
-    this.middleImage.anchor.set(0.5);
-    this.rightImage = Sprite.from("shine");
-    this.rightImage.anchor.set(0.5);
+    this.leftImage = this.addSprite("shine", config.shine.left.offset);
+    this.middleImage = this.addSprite("shine", config.shine.middle.offset);
+    this.rightImage = this.addSprite("shine", config.shine.right.offset);
 
     this.animate(this.leftImage, config.shine.left.animation);
     this.animate(this.middleImage, config.shine.middle.animation);
     this.animate(this.rightImage, config.shine.right.animation);
 
     this.visible = true;
-
-    this.addChild(this.leftImage, this.middleImage, this.rightImage);
   }
 
   private animate(image: Sprite, config: ShineAnimationConfig): void {
@@ -64,19 +61,5 @@ export class Shine extends Container {
       duration: config.spinDuration,
       ease: "none",
     });
-  }
-
-  public center(width: number, height: number): void {
-    this.x = width / 2;
-    this.y = height / 2;
-
-    this.leftImage.x = config.shine.left.offset.x;
-    this.leftImage.y = config.shine.left.offset.y;
-
-    this.middleImage.x = config.shine.middle.offset.x;
-    this.middleImage.y = config.shine.middle.offset.y;
-
-    this.rightImage.x = config.shine.right.offset.x;
-    this.rightImage.y = config.shine.right.offset.y;
   }
 }

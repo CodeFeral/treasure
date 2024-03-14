@@ -27,19 +27,22 @@ export default class Game extends Scene {
 
     this.addChild(this.background, this.door, this.wheel, this.shine);
 
-    this.door.setOpen();
-    this.wheel.visible = false;
+    this.door.setClosed();
+    this.wheel.visible = true;
+    this.shine.visible = false;
   }
 
   async start() {
     // TEST, LOAD
     window.addEventListener("pointerdown", () => {
       // this.wheel.rotate(config.input.spinDuration, true);
-      this.door.setOpen();
+      // this.door.setOpen();
+      this.shine.visible = true;
     });
     window.addEventListener("pointerup", () => {
       // this.wheel.rotate(config.input.spinDuration, false);
-      this.door.setClosed();
+      // this.door.setClosed();
+      this.shine.visible = false;
     });
   }
 

@@ -20,8 +20,8 @@ export default {
       y: -40,
     },
     shadowOffset: {
-      x: 40,
-      y: 25,
+      x: 5,
+      y: -15,
     },
   },
   door: {
@@ -30,8 +30,8 @@ export default {
       y: -35,
     },
     shadowOffset: {
-      x: 70,
-      y: 60,
+      x: 1530,
+      y: 40,
     },
     openOffset: {
       x: 1460,
