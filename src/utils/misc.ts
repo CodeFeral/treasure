@@ -28,3 +28,8 @@ export async function after(
 export function getEntries<T extends object>(obj: T) {
   return Object.entries(obj) as Entries<T>;
 }
+
+export type Vector = {
+  x: number;
+  y: number;
+};
