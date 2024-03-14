@@ -18,10 +18,8 @@ export class Door extends Container {
 
     this.closedImage = Sprite.from("doorClosed");
     this.closedImage.anchor.set(0.5);
-
     this.shadowImage = Sprite.from("doorOpenShadow");
     this.shadowImage.anchor.set(0.5);
-
     this.openImage = Sprite.from("doorOpen");
     this.openImage.anchor.set(0.5);
 

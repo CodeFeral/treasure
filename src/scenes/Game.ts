@@ -1,15 +1,8 @@
-import config from "../config";
 import Scene from "../core/Scene";
 import { Wheel } from "../prefabs/Wheel";
 import { Background } from "../prefabs/Background";
 import { Door } from "../prefabs/Door";
-
-export type GameConfig = {
-  minWidth: number;
-  minHeight: number;
-  wheelScale: number;
-  doorScale: number;
-};
+import { Shine } from "../prefabs/Shine";
 
 export type InputConfig = {
   spinDuration: number;
@@ -21,21 +14,25 @@ export default class Game extends Scene {
   private background!: Background;
   private wheel!: Wheel;
   private door!: Door;
+  private shine!: Shine;
 
   load() {
     this.background = new Background();
 
     this.door = new Door();
-    this.door.center(window.innerWidth, window.innerHeight);
-
     this.wheel = new Wheel();
-    this.wheel.center(window.innerWidth, window.innerHeight);
+    this.shine = new Shine();
 
     this.onResize(window.innerWidth, window.innerHeight);
 
-    this.addChild(this.background, this.door, this.wheel);
+    this.addChild(this.background, this.door, this.wheel, this.shine);
 
-    // TEST
+    this.door.setOpen();
+    this.wheel.visible = false;
+  }
+
+  async start() {
+    // TEST, LOAD
     window.addEventListener("pointerdown", () => {
       // this.wheel.rotate(config.input.spinDuration, true);
       this.door.setOpen();
@@ -46,15 +43,16 @@ export default class Game extends Scene {
     });
   }
 
-  async start() {}
-
   onResize(width: number, height: number): void {
     this.background.resize(width, height);
 
-    this.wheel.scale.set(this.background.scaleFactor * config.game.wheelScale);
+    this.wheel.scale.set(this.background.scaleFactor);
     this.wheel.center(width, height);
 
-    this.door.scale.set(this.background.scaleFactor * config.game.doorScale);
+    this.door.scale.set(this.background.scaleFactor);
     this.door.center(width, height);
+
+    this.shine.scale.set(this.background.scaleFactor);
+    this.shine.center(width, height);
   }
 }
