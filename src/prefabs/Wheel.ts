@@ -5,6 +5,7 @@ import { Mathematics } from "../utils/Mathematics";
 import { Vector } from "../utils/misc";
 
 export type WheelConfig = {
+  centerOffset: Vector;
   shadowOffset: Vector;
 };
 
@@ -33,8 +34,11 @@ export class Wheel extends Container {
     this.x = width / 2;
     this.y = height / 2;
 
-    this.shadow.x = config.wheel.shadowOffset.x;
-    this.shadow.y = config.wheel.shadowOffset.y;
+    this.image.x = config.wheel.centerOffset.x;
+    this.image.y = config.wheel.centerOffset.y;
+
+    this.shadow.x = config.wheel.centerOffset.x + config.wheel.shadowOffset.x;
+    this.shadow.y = config.wheel.centerOffset.y + config.wheel.shadowOffset.y;
   }
 
   public rotate(duration = 1, clockwise = true): void {

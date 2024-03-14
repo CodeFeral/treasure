@@ -1,58 +1,47 @@
+import config from "../config";
 import { Container, Sprite } from "pixi.js";
 import { Vector } from "../utils/misc";
 
-const centerOffset: Vector = {
-  x: 0.47,
-  y: 0.52,
-};
-
-const openOffset: Vector = {
-  x: -1.14,
-  y: -0.01,
-};
-
-const shadowOffset: Vector = {
-  x: 0.05,
-  y: -0.03,
+export type DoorConfig = {
+  closedOffset: Vector;
+  shadowOffset: Vector;
+  openOffset: Vector;
 };
 
 export class Door extends Container {
-  private imageOpen: Sprite;
-  private imageClosed: Sprite;
-  private openShadow: Sprite;
+  private closedImage: Sprite;
+  private shadowImage: Sprite;
+  private openImage: Sprite;
 
   constructor() {
     super();
 
-    this.imageOpen = Sprite.from("doorOpen");
-    this.imageOpen.anchor.set(
-      centerOffset.x + openOffset.x,
-      centerOffset.y + openOffset.y
-    );
-    this.imageOpen.visible = true;
+    this.closedImage = Sprite.from("doorClosed");
+    this.closedImage.anchor.set(0.5);
+    this.closedImage.visible = true;
 
-    this.openShadow = Sprite.from("doorOpenShadow");
-    this.openShadow.anchor.set(
-      centerOffset.x + openOffset.x + shadowOffset.x,
-      centerOffset.y + openOffset.y + shadowOffset.y
-    );
-    this.openShadow.visible = true;
+    this.shadowImage = Sprite.from("doorOpenShadow");
+    this.shadowImage.anchor.set(0.5);
+    this.shadowImage.visible = true;
 
-    this.imageClosed = Sprite.from("doorClosed");
-    this.imageClosed.anchor.set(centerOffset.x, centerOffset.y);
-    this.imageClosed.visible = true;
+    this.openImage = Sprite.from("doorOpen");
+    this.openImage.anchor.set(0.5);
+    this.openImage.visible = true;
 
-    this.addChild(this.imageOpen, this.openShadow, this.imageClosed);
+    this.addChild(this.closedImage, this.shadowImage, this.openImage);
   }
 
-  public setSize(size: number): void {
-    this.imageOpen.width = size;
-    this.imageOpen.height = size;
+  public center(width: number, height: number): void {
+    this.x = width / 2;
+    this.y = height / 2;
 
-    this.openShadow.width = size;
-    this.openShadow.height = size;
+    this.closedImage.x = config.door.closedOffset.x;
+    this.closedImage.y = config.door.closedOffset.y;
 
-    this.imageClosed.width = size;
-    this.imageClosed.height = size;
+    this.shadowImage.x = config.door.openOffset.x + config.door.shadowOffset.x;
+    this.shadowImage.y = config.door.openOffset.y + config.door.shadowOffset.y;
+
+    this.openImage.x = config.door.openOffset.x;
+    this.openImage.y = config.door.openOffset.y;
   }
 }

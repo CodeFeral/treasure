@@ -22,11 +22,12 @@ export default class Game extends Scene {
   private wheel!: Wheel;
   private door!: Door;
 
-  count = 0;
-
   load() {
     this.background = new Background();
+
     this.door = new Door();
+    this.door.center(window.innerWidth, window.innerHeight);
+
     this.wheel = new Wheel();
     this.wheel.center(window.innerWidth, window.innerHeight);
 
@@ -50,6 +51,7 @@ export default class Game extends Scene {
     this.wheel.scale.set(this.background.scaleFactor * config.game.wheelScale);
     this.wheel.center(width, height);
 
-    this.door.scale.set(this.background.scaleFactor * config.game.wheelScale);
+    this.door.scale.set(this.background.scaleFactor * config.game.doorScale);
+    this.door.center(width, height);
   }
 }
