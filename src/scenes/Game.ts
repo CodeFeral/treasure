@@ -1,5 +1,4 @@
 import config from "../config";
-import { centerObjects } from "../utils/misc";
 import Scene from "../core/Scene";
 import { Wheel } from "../prefabs/Wheel";
 import { Background } from "../prefabs/Background";
@@ -12,6 +11,10 @@ export type GameConfig = {
   doorScale: number;
 };
 
+export type InputConfig = {
+  spinDuration: number;
+};
+
 export default class Game extends Scene {
   name = "Game";
 
@@ -19,25 +22,31 @@ export default class Game extends Scene {
   private wheel!: Wheel;
   private door!: Door;
 
+  count = 0;
+
   load() {
     this.background = new Background();
     this.door = new Door();
     this.wheel = new Wheel();
+    this.wheel.center(window.innerWidth, window.innerHeight);
 
     this.onResize(window.innerWidth, window.innerHeight);
 
     this.addChild(this.background, this.door, this.wheel);
   }
 
-  async start() { }
+  async start() {
+    window.addEventListener("pointerdown", () => {
+      this.wheel.rotate(config.input.spinDuration);
+    });
+  }
 
   onResize(width: number, height: number): void {
-    centerObjects(this.wheel);
-    centerObjects(this.door);
-
     this.background.resize(width, height);
 
     this.wheel.scale.set(this.background.scaleFactor * config.game.wheelScale);
+    this.wheel.center(width, height);
+
     this.door.scale.set(this.background.scaleFactor * config.game.wheelScale);
   }
 }

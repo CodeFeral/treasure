@@ -1,40 +1,70 @@
+import config from "../config";
+import gsap from "gsap";
 import { Container, Sprite } from "pixi.js";
+import { Mathematics } from "../utils/Mathematics";
 import { Vector } from "../utils/misc";
 
-const centerOffset: Vector = {
-  x: 0.53,
-  y: 0.56,
+export type WheelConfig = {
+  shadowOffset: Vector;
 };
 
-const shadowOffset: Vector = {
-  x: 0.03,
-  y: -0.03,
-};
+const rotationDegrees: number = 60;
 
 export class Wheel extends Container {
   private image: Sprite;
   private shadow: Sprite;
+  private isRotating: boolean;
 
   constructor() {
     super();
 
+    this.isRotating = false;
+
     this.shadow = Sprite.from("wheelShadow");
-    this.shadow.anchor.set(
-      centerOffset.x + shadowOffset.x,
-      centerOffset.y + shadowOffset.y
-    );
+    this.shadow.anchor.set(0.5);
+    this.shadow.x = 0;
+    this.shadow.y = 0;
 
     this.image = Sprite.from("wheel");
-    this.image.anchor.set(centerOffset.x, centerOffset.y);
+    this.image.anchor.set(0.5);
+    this.image.x = 0;
+    this.image.y = 0;
 
     this.addChild(this.shadow, this.image);
   }
 
-  public setSize(size: number): void {
-    this.shadow.width = size;
-    this.shadow.height = size;
+  public center(width: number, height: number): void {
+    this.x = width / 2;
+    this.y = height / 2;
 
-    this.image.width = size;
-    this.image.height = size;
+    this.shadow.x = config.wheel.shadowOffset.x;
+    this.shadow.y = config.wheel.shadowOffset.y;
+  }
+
+  public rotate(duration = 1): void {
+    if (this.isRotating) {
+      console.log("WAIT");
+      return;
+    }
+    this.isRotating = true;
+
+    gsap.to(this.image, {
+      rotation: Mathematics.degreesToRadians(
+        this.image.angle + rotationDegrees
+      ),
+      duration: duration,
+      ease: "ease",
+      onComplete: () => {
+        this.isRotating = false;
+      },
+    });
+
+    gsap.to(this.shadow, {
+      rotation: Mathematics.degreesToRadians(
+        this.image.angle + rotationDegrees
+      ),
+      duration: duration,
+      ease: "ease",
+    });
   }
 }
