@@ -37,7 +37,10 @@ export default class Game extends Scene {
 
   async start() {
     window.addEventListener("pointerdown", () => {
-      this.wheel.rotate(config.input.spinDuration);
+      this.wheel.rotate(config.input.spinDuration, true);
+    });
+    window.addEventListener("pointerup", () => {
+      this.wheel.rotate(config.input.spinDuration, false);
     });
   }
 

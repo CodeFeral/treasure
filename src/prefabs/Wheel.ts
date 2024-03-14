@@ -22,13 +22,9 @@ export class Wheel extends Container {
 
     this.shadow = Sprite.from("wheelShadow");
     this.shadow.anchor.set(0.5);
-    this.shadow.x = 0;
-    this.shadow.y = 0;
 
     this.image = Sprite.from("wheel");
     this.image.anchor.set(0.5);
-    this.image.x = 0;
-    this.image.y = 0;
 
     this.addChild(this.shadow, this.image);
   }
@@ -41,17 +37,17 @@ export class Wheel extends Container {
     this.shadow.y = config.wheel.shadowOffset.y;
   }
 
-  public rotate(duration = 1): void {
+  public rotate(duration = 1, clockwise = true): void {
     if (this.isRotating) {
       console.log("WAIT");
       return;
     }
     this.isRotating = true;
 
+    const angle = clockwise ? rotationDegrees : -rotationDegrees;
+
     gsap.to(this.image, {
-      rotation: Mathematics.degreesToRadians(
-        this.image.angle + rotationDegrees
-      ),
+      rotation: Mathematics.degreesToRadians(this.image.angle + angle),
       duration: duration,
       ease: "ease",
       onComplete: () => {
@@ -60,9 +56,7 @@ export class Wheel extends Container {
     });
 
     gsap.to(this.shadow, {
-      rotation: Mathematics.degreesToRadians(
-        this.image.angle + rotationDegrees
-      ),
+      rotation: Mathematics.degreesToRadians(this.image.angle + angle),
       duration: duration,
       ease: "ease",
     });
