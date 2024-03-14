@@ -14,6 +14,7 @@ const rotationDegrees: number = 60;
 export class Wheel extends Container {
   private image: Sprite;
   private shadow: Sprite;
+
   private isRotating: boolean;
 
   constructor() {

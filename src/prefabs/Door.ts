@@ -18,17 +18,28 @@ export class Door extends Container {
 
     this.closedImage = Sprite.from("doorClosed");
     this.closedImage.anchor.set(0.5);
-    this.closedImage.visible = true;
 
     this.shadowImage = Sprite.from("doorOpenShadow");
     this.shadowImage.anchor.set(0.5);
-    this.shadowImage.visible = true;
 
     this.openImage = Sprite.from("doorOpen");
     this.openImage.anchor.set(0.5);
-    this.openImage.visible = true;
+
+    this.setClosed();
 
     this.addChild(this.closedImage, this.shadowImage, this.openImage);
+  }
+
+  public setOpen() {
+    this.closedImage.visible = false;
+    this.openImage.visible = true;
+    this.shadowImage.visible = true;
+  }
+
+  public setClosed() {
+    this.closedImage.visible = true;
+    this.openImage.visible = false;
+    this.shadowImage.visible = false;
   }
 
   public center(width: number, height: number): void {

@@ -34,16 +34,19 @@ export default class Game extends Scene {
     this.onResize(window.innerWidth, window.innerHeight);
 
     this.addChild(this.background, this.door, this.wheel);
-  }
 
-  async start() {
+    // TEST
     window.addEventListener("pointerdown", () => {
-      this.wheel.rotate(config.input.spinDuration, true);
+      // this.wheel.rotate(config.input.spinDuration, true);
+      this.door.setOpen();
     });
     window.addEventListener("pointerup", () => {
-      this.wheel.rotate(config.input.spinDuration, false);
+      // this.wheel.rotate(config.input.spinDuration, false);
+      this.door.setClosed();
     });
   }
+
+  async start() {}
 
   onResize(width: number, height: number): void {
     this.background.resize(width, height);
