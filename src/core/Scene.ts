@@ -1,5 +1,5 @@
 import { Container } from "pixi.js";
-import type { SceneUtils } from "./SceneManager";
+import AssetLoader from "./AssetLoader";
 
 export interface Scene {
   load?(): void | Promise<void>;
@@ -7,6 +7,10 @@ export interface Scene {
   start?(): void | Promise<void>;
   onResize?(width: number, height: number): void;
   update?(delta: number): void;
+}
+
+interface SceneUtils {
+  assetLoader: AssetLoader;
 }
 
 export abstract class Scene extends Container {

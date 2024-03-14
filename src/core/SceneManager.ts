@@ -2,10 +2,6 @@ import { Application } from "pixi.js";
 import Scene from "./Scene";
 import AssetLoader from "./AssetLoader";
 
-export interface SceneUtils {
-  assetLoader: AssetLoader;
-}
-
 export default class SceneManager {
   private sceneConstructors = this.importScenes();
 

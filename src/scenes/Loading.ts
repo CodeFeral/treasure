@@ -8,7 +8,7 @@ export default class Loading extends Scene {
   async load() {
     await this.utils.assetLoader.loadAssetsGroup("Loading");
 
-    const bg = Sprite.from("bgNight");
+    const background = Sprite.from("background");
 
     const text = new Text("Loading...", {
       fontFamily: "Verdana",
@@ -18,9 +18,9 @@ export default class Loading extends Scene {
 
     text.resolution = 2;
 
-    centerObjects(bg, text);
+    centerObjects(background, text);
 
-    this.addChild(bg, text);
+    this.addChild(background, text);
   }
 
   async start() {
