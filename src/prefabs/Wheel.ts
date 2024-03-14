@@ -28,11 +28,13 @@ export class Wheel extends SpriteContainer {
     this.visible = true;
   }
 
-  public rotate(duration = 1, clockwise = true): void {
+  public rotateOnce(clockwise: boolean, duration = 1): void {
     if (this.isRotating) {
-      console.log("WAIT");
+      console.error("ERROR: Why the fuck???");
       return;
     }
+    console.log("rotate")
+
     this.isRotating = true;
 
     const angle = clockwise ? rotationDegrees : -rotationDegrees;

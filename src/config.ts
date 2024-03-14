@@ -21,7 +21,7 @@ export default {
     height: 1120,
     gap: 20,
     offset: {
-      x: 0,
+      x: -40,
       y: -600,
     },
   },

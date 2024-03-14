@@ -1,10 +1,7 @@
 import { Graphics } from "pixi.js";
 
 export class InputZone extends Graphics {
-  private left: boolean;
-
   constructor(
-    left: boolean,
     x: number,
     y: number,
     width: number,
@@ -16,22 +13,13 @@ export class InputZone extends Graphics {
     this.beginFill(color);
     this.drawRect(0, 0, width, height);
     this.endFill();
-    this.alpha = 1;
-
-    this.left = left;
 
     this.x = x;
     this.y = y;
 
-    this.eventMode = "static";
-    this.on("pointerdown", this.handleClick);
-  }
+    this.alpha = 0.2;
+    this.visible = true;
 
-  private handleClick(): void {
-    if (this.left) {
-      console.log("LEFT");
-    } else {
-      console.log("RIGHT");
-    }
+    this.eventMode = "static";
   }
 }

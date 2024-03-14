@@ -1,4 +1,6 @@
+import config from "../config";
 import Scene from "../core/Scene";
+import { Logic } from "../core/Logic";
 import { Wheel } from "../prefabs/Wheel";
 import { Background } from "../prefabs/Background";
 import { Door } from "../prefabs/Door";
@@ -15,6 +17,8 @@ export default class Game extends Scene {
   private inputZones!: InputZones;
 
   load() {
+    Logic.initialize(this);
+
     this.background = new Background();
     this.door = new Door();
     this.wheel = new Wheel();
@@ -30,11 +34,18 @@ export default class Game extends Scene {
 
     this.onResize(window.innerWidth, window.innerHeight);
 
-    // GameLogic.setGameScene(this);
-    this.setClosed();
+    Logic.close();
   }
 
-  async start() {}
+  async start() {
+    window.addEventListener("keyup", (event) => {
+      if (event.key === "a") {
+        Logic.close();
+      } else if (event.key === "s") {
+        Logic.open();
+      }
+    });
+  }
 
   onResize(width: number, height: number): void {
     this.background.resize(width, height);
@@ -56,11 +67,21 @@ export default class Game extends Scene {
     this.door.setClosed();
     this.wheel.visible = true;
     this.shine.visible = false;
+    this.inputZones.visible = true;
   }
 
   public setOpen(): void {
     this.door.setOpen();
     this.wheel.visible = false;
     this.shine.visible = true;
+    this.inputZones.visible = false;
+  }
+
+  public spinClockwse(): void {
+    this.wheel.rotateOnce(true, config.logic.spinDuration);
+  }
+
+  public spinCounterClockwse(): void {
+    this.wheel.rotateOnce(false, config.logic.spinDuration);
   }
 }
