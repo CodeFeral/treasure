@@ -1,4 +1,4 @@
-import { Sprite, Text } from "pixi.js";
+import { Text } from "pixi.js";
 import Scene from "../core/Scene";
 import { centerObjects } from "../utils/misc";
 
@@ -6,10 +6,6 @@ export default class Loading extends Scene {
   name = "Loading";
 
   async load() {
-    await this.utils.assetLoader.loadAssetsGroup("Loading");
-
-    const background = Sprite.from("background");
-
     const text = new Text("Loading...", {
       fontFamily: "Verdana",
       fontSize: 50,
@@ -18,9 +14,9 @@ export default class Loading extends Scene {
 
     text.resolution = 2;
 
-    centerObjects(background, text);
+    centerObjects(text);
 
-    this.addChild(background, text);
+    this.addChild(text);
   }
 
   async start() {
