@@ -1,18 +1,29 @@
+import { LogicConfig } from "./core/Logic";
+import { InputZonesConfig } from "./prefabs/InputZones";
+import { WheelConfig } from "./prefabs/Wheel";
 import { DoorConfig } from "./prefabs/Door";
 import { ShineConfig } from "./prefabs/Shine";
-import { WheelConfig } from "./prefabs/Wheel";
-import { InputConfig } from "./scenes/Game";
 
 type Config = {
-  input: InputConfig;
+  logic: LogicConfig;
+  inputZones: InputZonesConfig;
   wheel: WheelConfig;
   door: DoorConfig;
   shine: ShineConfig;
 };
 
 export default {
-  input: {
-    spinDuration: 0.26,
+  logic: {
+    spinDuration: 0.3,
+  },
+  inputZones: {
+    width: 620,
+    height: 1120,
+    gap: 20,
+    offset: {
+      x: 0,
+      y: -600,
+    },
   },
   wheel: {
     centerOffset: {

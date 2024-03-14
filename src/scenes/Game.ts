@@ -3,11 +3,7 @@ import { Wheel } from "../prefabs/Wheel";
 import { Background } from "../prefabs/Background";
 import { Door } from "../prefabs/Door";
 import { Shine } from "../prefabs/Shine";
-import { GameLogic } from "../core/GameLogic";
-
-export type InputConfig = {
-  spinDuration: number;
-};
+import { InputZones } from "../prefabs/InputZones";
 
 export default class Game extends Scene {
   name = "Game";
@@ -16,21 +12,26 @@ export default class Game extends Scene {
   private wheel!: Wheel;
   private door!: Door;
   private shine!: Shine;
+  private inputZones!: InputZones;
 
   load() {
     this.background = new Background();
     this.door = new Door();
     this.wheel = new Wheel();
     this.shine = new Shine();
-    this.addChild(this.background, this.door, this.wheel, this.shine);
+    this.inputZones = new InputZones();
+    this.addChild(
+      this.background,
+      this.door,
+      this.wheel,
+      this.shine,
+      this.inputZones
+    );
 
     this.onResize(window.innerWidth, window.innerHeight);
 
-    this.door.setClosed();
-    this.wheel.visible = true;
-    this.shine.visible = false;
-
-    GameLogic.setGameScene(this);
+    // GameLogic.setGameScene(this);
+    this.setClosed();
   }
 
   async start() {}
@@ -46,6 +47,9 @@ export default class Game extends Scene {
 
     this.shine.scale.set(this.background.scaleFactor);
     this.shine.center(width, height);
+
+    this.inputZones.scale.set(this.background.scaleFactor);
+    this.inputZones.center(width, height);
   }
 
   public setClosed(): void {
