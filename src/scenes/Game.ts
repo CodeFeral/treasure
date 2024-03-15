@@ -5,6 +5,7 @@ import { Shine } from "../prefabs/Shine";
 import { InputZones } from "../prefabs/InputZones";
 import { Logic } from "../core/Logic";
 import { Wheel } from "../prefabs/Wheel";
+import { Timer } from "../prefabs/Timer";
 
 export default class Game extends Scene {
   name = "Game";
@@ -14,6 +15,7 @@ export default class Game extends Scene {
   private door!: Door;
   private shine!: Shine;
   private inputZones!: InputZones;
+  private timer!: Timer;
 
   load() {
     Logic.initialize(this);
@@ -23,12 +25,15 @@ export default class Game extends Scene {
     this.wheel = new Wheel();
     this.shine = new Shine();
     this.inputZones = new InputZones();
+    this.timer = new Timer();
+
     this.addChild(
       this.background,
       this.door,
       this.wheel,
       this.shine,
-      this.inputZones
+      this.inputZones,
+      this.timer
     );
 
     this.onResize(window.innerWidth, window.innerHeight);
@@ -50,6 +55,9 @@ export default class Game extends Scene {
 
     this.inputZones.scale.set(this.background.scaleFactor);
     this.inputZones.center(width, height);
+
+    this.timer.scale.set(this.background.scaleFactor);
+    this.timer.center(width, height);
   }
 
   public setClosed(): void {
@@ -64,6 +72,14 @@ export default class Game extends Scene {
     this.wheel.visible = false;
     this.shine.visible = true;
     this.inputZones.visible = false;
+  }
+
+  public startTimer(): void {
+    this.timer.startCounting();
+  }
+
+  public stopTimer(): void {
+    this.timer.resetCounter();
   }
 
   public spinClockwse(duration: number): void {

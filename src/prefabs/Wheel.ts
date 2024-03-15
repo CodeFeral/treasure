@@ -10,14 +10,9 @@ export type WheelConfig = {
   shadowOffset: Vector;
 };
 
-export interface IWheel {
-  rotateOnce(clockwise: boolean, duration: number): void;
-  rotateContinuous(duration: number): void;
-}
-
 const rotationDegrees: number = 60;
 
-export class Wheel extends SpriteContainer implements IWheel {
+export class Wheel extends SpriteContainer {
   private image: Sprite;
   private shadow: Sprite;
 

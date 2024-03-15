@@ -37,23 +37,20 @@ export abstract class Logic {
     this.gameScene.setClosed();
     this.generate();
 
-    // TODO: timer
-
     this.play();
   }
 
   private static play(): void {
     this.gameState = GameState.PLAY;
 
-    // TODO: or timer here?
+    this.gameScene.startTimer();
   }
 
   private static treasure(): void {
     this.gameState = GameState.TREASURE;
-    console.log("gg");
 
     this.gameScene.setOpen();
-    // TODO: timer log
+    this.gameScene.stopTimer();
 
     setTimeout(() => {
       this.reset();
@@ -64,6 +61,7 @@ export abstract class Logic {
     this.gameState = GameState.RESET;
 
     this.gameScene.setClosed();
+    this.gameScene.stopTimer();
     this.gameScene.continuousRotation(config.logic.resetDuration);
 
     setTimeout(() => {

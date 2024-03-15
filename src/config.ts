@@ -3,6 +3,7 @@ import { InputZonesConfig } from "./prefabs/InputZones";
 import { WheelConfig } from "./prefabs/Wheel";
 import { DoorConfig } from "./prefabs/Door";
 import { ShineConfig } from "./prefabs/Shine";
+import { TimerConfig } from "./prefabs/Timer";
 
 type Config = {
   logic: LogicConfig;
@@ -10,6 +11,7 @@ type Config = {
   wheel: WheelConfig;
   door: DoorConfig;
   shine: ShineConfig;
+  timer: TimerConfig;
 };
 
 export default {
@@ -88,5 +90,12 @@ export default {
         spinDuration: 18,
       },
     },
+  },
+  timer: {
+    offset: {
+      x: -1105,
+      y: -145,
+    },
+    max: 999,
   },
 } as Config;
