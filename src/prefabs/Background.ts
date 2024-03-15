@@ -34,7 +34,7 @@ export class Background extends Container {
     return scaleFactor;
   }
 
-  public resize(width: number, height: number) {
+  public resize(width: number, height: number): void {
     this.scaleFactor = this.calculateScaleFactor(width, height);
     this.scale.x = this.scaleFactor;
     this.scale.y = this.scaleFactor;

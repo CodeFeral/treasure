@@ -1,5 +1,4 @@
 import { Assets } from "pixi.js";
-import { Debug } from "../utils/debug";
 
 type Asset = {
   name: string;
@@ -32,8 +31,6 @@ export default class AssetLoader {
     }
 
     const resources = await Assets.load(sceneAssets.map((asset) => asset.name));
-
-    Debug.log("✅ Loaded assets group", group, resources);
 
     return resources;
   }

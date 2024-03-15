@@ -21,6 +21,7 @@ export default {
     resetDuration: 2,
   },
   inputZones: {
+    show: false,
     width: 620,
     height: 1120,
     gap: 20,

@@ -5,6 +5,7 @@ import { Vector } from "../utils/misc";
 import { Logic } from "../core/Logic";
 
 export type InputZonesConfig = {
+  show: boolean;
   width: number;
   height: number;
   gap: number;
@@ -22,27 +23,19 @@ export class InputZones extends Container {
       config.inputZones.offset.x - config.inputZones.width,
       config.inputZones.offset.y,
       config.inputZones.width,
-      config.inputZones.height,
-      0x003000
+      config.inputZones.height
     );
+    this.left.on("pointerup", this.handleLeftEvent);
 
     this.right = new InputZone(
       config.inputZones.offset.x + config.inputZones.gap,
       config.inputZones.offset.y,
       config.inputZones.width,
-      config.inputZones.height,
-      0x000030
+      config.inputZones.height
     );
-
-    this.left.on("pointerup", this.handleLeftEvent);
     this.right.on("pointerup", this.handleRightEvent);
 
     this.addChild(this.left, this.right);
-  }
-
-  public center(width: number, height: number): void {
-    this.x = width / 2;
-    this.y = height / 2;
   }
 
   private handleLeftEvent() {
@@ -51,5 +44,10 @@ export class InputZones extends Container {
 
   private handleRightEvent(): void {
     Logic.spin(true);
+  }
+
+  public center(width: number, height: number): void {
+    this.x = width / 2;
+    this.y = height / 2;
   }
 }

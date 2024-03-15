@@ -1,6 +1,6 @@
+import { centerObjects } from "../utils/misc";
 import { Text } from "pixi.js";
 import Scene from "../core/Scene";
-import { centerObjects } from "../utils/misc";
 
 export default class Loading extends Scene {
   name = "Loading";

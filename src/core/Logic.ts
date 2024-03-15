@@ -20,7 +20,6 @@ enum GameState {
   RESET,
 }
 
-// TODO: generate 1-9
 export abstract class Logic {
   private static gameScene: Game;
   private static gameState: GameState;
@@ -75,7 +74,7 @@ export abstract class Logic {
 
     const combination: Combination[] = [];
     for (let i = 0; i < 3; i++) {
-      const spins = Math.ceil(Math.random() * 3);
+      const spins = Math.ceil(Math.random() * 9);
       const clockwise = Math.random() > 0.5;
       combination.push({ spins: spins, clockwise: clockwise });
     }
@@ -139,6 +138,7 @@ export abstract class Logic {
     EventLock.lock();
 
     this.addRotation(clockwise);
+
     if (clockwise) {
       this.gameScene.spinClockwse(config.logic.spinDuration);
     } else {

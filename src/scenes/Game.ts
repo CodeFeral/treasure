@@ -1,9 +1,9 @@
 import Scene from "../core/Scene";
+import { Logic } from "../core/Logic";
 import { Background } from "../prefabs/Background";
 import { Door } from "../prefabs/Door";
 import { Shine } from "../prefabs/Shine";
 import { InputZones } from "../prefabs/InputZones";
-import { Logic } from "../core/Logic";
 import { Wheel } from "../prefabs/Wheel";
 import { Timer } from "../prefabs/Timer";
 
