@@ -17,7 +17,7 @@ export class InputZone extends Graphics {
     this.x = x;
     this.y = y;
 
-    this.alpha = 0.2;
+    this.alpha = 0;
     this.visible = true;
 
     this.eventMode = "static";
