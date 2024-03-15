@@ -1,11 +1,10 @@
-import config from "../config";
 import Scene from "../core/Scene";
-import { Logic } from "../core/Logic";
-import { Wheel } from "../prefabs/Wheel";
 import { Background } from "../prefabs/Background";
 import { Door } from "../prefabs/Door";
 import { Shine } from "../prefabs/Shine";
 import { InputZones } from "../prefabs/InputZones";
+import { Logic } from "../core/Logic";
+import { Wheel } from "../prefabs/Wheel";
 
 export default class Game extends Scene {
   name = "Game";
@@ -34,17 +33,7 @@ export default class Game extends Scene {
 
     this.onResize(window.innerWidth, window.innerHeight);
 
-    Logic.close();
-  }
-
-  async start() {
-    window.addEventListener("keyup", (event) => {
-      if (event.key === "a") {
-        Logic.close();
-      } else if (event.key === "s") {
-        Logic.open();
-      }
-    });
+    Logic.start();
   }
 
   onResize(width: number, height: number): void {
@@ -77,11 +66,15 @@ export default class Game extends Scene {
     this.inputZones.visible = false;
   }
 
-  public spinClockwse(): void {
-    this.wheel.rotateOnce(true, config.logic.spinDuration);
+  public spinClockwse(duration: number): void {
+    this.wheel.rotateOnce(true, duration);
   }
 
-  public spinCounterClockwse(): void {
-    this.wheel.rotateOnce(false, config.logic.spinDuration);
+  public spinCounterClockwse(duration: number): void {
+    this.wheel.rotateOnce(false, duration);
+  }
+
+  public continuousRotation(duration: number): void {
+    this.wheel.rotateContinuous(duration);
   }
 }

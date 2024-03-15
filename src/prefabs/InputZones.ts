@@ -46,10 +46,10 @@ export class InputZones extends Container {
   }
 
   private handleLeftEvent() {
-    Logic.counterClockwise();
+    Logic.spin(false);
   }
 
   private handleRightEvent(): void {
-    Logic.clockwise();
+    Logic.spin(true);
   }
 }

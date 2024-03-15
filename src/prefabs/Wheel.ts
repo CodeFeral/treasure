@@ -10,9 +10,14 @@ export type WheelConfig = {
   shadowOffset: Vector;
 };
 
+export interface IWheel {
+  rotateOnce(clockwise: boolean, duration: number): void;
+  rotateContinuous(duration: number): void;
+}
+
 const rotationDegrees: number = 60;
 
-export class Wheel extends SpriteContainer {
+export class Wheel extends SpriteContainer implements IWheel {
   private image: Sprite;
   private shadow: Sprite;
 
@@ -33,7 +38,6 @@ export class Wheel extends SpriteContainer {
       console.error("ERROR: Why the fuck???");
       return;
     }
-    console.log("rotate")
 
     this.isRotating = true;
 
@@ -53,5 +57,19 @@ export class Wheel extends SpriteContainer {
       duration: duration,
       ease: "ease",
     });
+  }
+
+  public rotateContinuous(duration: number): void {
+    gsap.fromTo(
+      [this.image, this.shadow],
+      {
+        rotation: 0,
+      },
+      {
+        rotation: -Mathematics.TAU * 4,
+        ease: "linear",
+        duration: duration,
+      }
+    );
   }
 }

@@ -14,7 +14,9 @@ type Config = {
 
 export default {
   logic: {
-    spinDuration: 0.3,
+    spinDuration: 0.24,
+    treasureDuration: 5,
+    resetDuration: 2,
   },
   inputZones: {
     width: 620,
